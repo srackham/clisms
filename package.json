@@ -1,18 +1,33 @@
-{ "name": "clisms"
-, "author": "Stuart Rackham <srackham@gmail.com>"
-, "version": "0.3.0"
-, "description": "A command-line script to send SMS messages using the Clickatell SMS gateway"
-, "keywords": [ "sms", "clickatell", "command-line" ]
-, "bin": { "clisms": "./clisms.js" }
-, "files": [
+{
+  "name": "clisms",
+  "author": "Stuart Rackham <srackham@gmail.com>",
+  "version": "0.3.0",
+  "description": "A command-line app to send SMS messages using the Clickatell SMS gateway",
+  "keywords": [
+    "sms",
+    "clickatell",
+    "command-line"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "engines": {
+    "node": ">=0.4.1"
+  },
+  "bin": {
+    "clisms": "./clisms.js"
+  },
+  "files": [
     "Cakefile",
     "clisms.coffee",
     "clisms.js",
     "package.json",
     "README.asciidoc"
-  ]
-, "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/srackham/clisms"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srackham/clisms"
   }
-}

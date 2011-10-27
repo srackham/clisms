@@ -60,7 +60,7 @@ ARGV = process.argv[1..]  # Drop 'coffee' interpreter from arguments.
 ARGC = ARGV.length
 PROG = path.basename ARGV[0]
 HOME = process.env.HOME ? process.env.HOMEPATH
-LOG_FILE = path.join HOME, 'sms.log'
+LOG_FILE = path.join HOME, 'clisms.log'
 PAGER = process.env.PAGER ? 'less'
 CONF_FILE = path.join HOME, '.clisms.json'
 if path.existsSync CONF_FILE

@@ -21,7 +21,7 @@
   ARGC = ARGV.length;
   PROG = path.basename(ARGV[0]);
   HOME = (_ref = process.env.HOME) != null ? _ref : process.env.HOMEPATH;
-  LOG_FILE = path.join(HOME, 'sms.log');
+  LOG_FILE = path.join(HOME, 'clisms.log');
   PAGER = (_ref2 = process.env.PAGER) != null ? _ref2 : 'less';
   CONF_FILE = path.join(HOME, '.clisms.json');
   if (path.existsSync(CONF_FILE)) {
