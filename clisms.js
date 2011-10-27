@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 (function() {
   var ARGC, ARGV, CONF, CONF_FILE, HOME, LOG_FILE, MAN_PAGE, MSG_STATUS, PAGER, PROG, QUERY, VERSION, fs, http, http_cmd, name, number, pager, path, print_account_balance, print_message_status, querystring, sanitize_phone_number, send_message, spawn, _ref, _ref2, _ref3;
   MAN_PAGE = function() {
