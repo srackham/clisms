@@ -5,14 +5,25 @@ fs = require 'fs'
 CS_SRC = path.join __dirname, 'clisms.coffee'
 JS_EXE = path.join __dirname, 'clisms.js'
 
+die = (message) ->
+    console.error "ERROR: #{message}"
+    process.exit 1
+
 compile = (callback) ->
   coffee = spawn 'coffee', ['-c', CS_SRC]
   coffee.stderr.on 'data', (data) -> console.error data.toString()
   coffee.stdout.on 'data', (data) -> console.info data.toString()
   coffee.on 'exit', (code) -> callback?() if code is 0
 
-addShebang = ->
-  fs.writeFileSync JS_EXE, "#!/usr/bin/env node\n#{fs.readFileSync JS_EXE}"
+addShebang = (script) ->
+  fs.writeFileSync script, "#!/usr/bin/env node\n#{fs.readFileSync script}"
 
 task 'build', 'Build JavaScript executable', ->
-  compile -> addShebang()
+  invoke 'validate'
+  compile -> addShebang JS_EXE
+
+task 'validate', 'Validate package.json', ->
+  try
+    JSON.parse fs.readFileSync('package.json')
+  catch error
+    die "package.json: invalid JSON: #{error.message}"
