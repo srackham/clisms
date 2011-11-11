@@ -86,15 +86,18 @@ MSG_STATUS =
   '012': 'out of credit'
 
 # Utility functions.
-String::startswith = (s) -> s == this[0...s.length]
-String::endswith = (s) -> s == this[-s.length..]
+String::startsWith = (s) -> s == this[0...s.length]
+String::endsWith = (s) -> s == this[-s.length..]
 
+# Execute shell command. 'cmd' is executable path; 'opts' is arguments arrary;
+# 'callback' is executed and passed the process exit code when the command
+# exits.
 shell = (cmd, opts, callback) ->
   process.stdin.pause()
   child = spawn cmd, opts, customFds: [0, 1, 2]
-  child.on 'exit', ->
+  child.on 'exit', (code) ->
     process.stdin.resume()
-    callback()
+    callback code
 
 # Execute Clickatell HTTP command.
 # The `process_response` function is called with the HTTP reponse data string.
@@ -137,7 +140,7 @@ send_message = (text, to) ->
     name = null
   to = sanitize_phone_number to
   sender_id = sanitize_phone_number CONF.SENDER_ID
-  if sender_id.startswith('64') and to.startswith('6427')
+  if sender_id.startsWith('64') and to.startsWith('6427')
     # Use local number format if sending to Telecom NZ mobile from a NZ
     # number (to work around Telecom NZ blocking NZ originating messages
     # from Clickatell).

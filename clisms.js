@@ -61,11 +61,11 @@
     '012': 'out of credit'
   };
 
-  String.prototype.startswith = function(s) {
+  String.prototype.startsWith = function(s) {
     return s === this.slice(0, s.length);
   };
 
-  String.prototype.endswith = function(s) {
+  String.prototype.endsWith = function(s) {
     return s === this.slice(-s.length);
   };
 
@@ -75,9 +75,9 @@
     child = spawn(cmd, opts, {
       customFds: [0, 1, 2]
     });
-    return child.on('exit', function() {
+    return child.on('exit', function(code) {
       process.stdin.resume();
-      return callback();
+      return callback(code);
     });
   };
 
@@ -135,7 +135,7 @@
     }
     to = sanitize_phone_number(to);
     sender_id = sanitize_phone_number(CONF.SENDER_ID);
-    if (sender_id.startswith('64') && to.startswith('6427')) {
+    if (sender_id.startsWith('64') && to.startsWith('6427')) {
       sender_id = '0' + sender_id.slice(2);
     }
     QUERY.from = sender_id;
