@@ -36,7 +36,7 @@ COPYING
   Copyright (C) 2011 Stuart Rackham. Free use of this software is
   granted under the terms of the MIT License.
 """
-VERSION = '0.3.1'
+VERSION = '0.3.2'
 
 {spawn} = require 'child_process'
 path = require 'path'
@@ -88,6 +88,13 @@ MSG_STATUS =
 # Utility functions.
 String::startswith = (s) -> s == this[0...s.length]
 String::endswith = (s) -> s == this[-s.length..]
+
+shell = (cmd, opts, callback) ->
+  process.stdin.pause()
+  child = spawn cmd, opts, customFds: [0, 1, 2]
+  child.on 'exit', ->
+    process.stdin.resume()
+    callback()
 
 # Execute Clickatell HTTP command.
 # The `process_response` function is called with the HTTP reponse data string.
@@ -165,8 +172,7 @@ else if ARGC == 2
     when '-b'
       print_account_balance()
     when '-l' # View log file in pager.
-      pager = spawn PAGER, [LOG_FILE],
-        customFds: [process.stdin, process.stdout, process.stderr]
+      shell PAGER, [LOG_FILE], -> process.exit()
     when '-p'
       for name, number of CONF.PHONE_BOOK
         console.info "#{name}: #{number}"

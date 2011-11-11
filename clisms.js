@@ -1,15 +1,23 @@
 #!/usr/bin/env node
 (function() {
-  var ARGC, ARGV, CONF, CONF_FILE, HOME, LOG_FILE, MAN_PAGE, MSG_STATUS, PAGER, PROG, QUERY, VERSION, fs, http, http_cmd, name, number, pager, path, print_account_balance, print_message_status, querystring, sanitize_phone_number, send_message, spawn, _ref, _ref2, _ref3;
+  var ARGC, ARGV, CONF, CONF_FILE, HOME, LOG_FILE, MAN_PAGE, MSG_STATUS, PAGER, PROG, QUERY, VERSION, fs, http, http_cmd, name, number, path, print_account_balance, print_message_status, querystring, sanitize_phone_number, send_message, shell, spawn, _ref, _ref2, _ref3;
+
   MAN_PAGE = function() {
     return "\nNAME\n  " + PROG + " - Send SMS message\n\nSYNOPSIS\n  " + PROG + " PHONE MESSAGE\n  " + PROG + " -s MSGID\n  " + PROG + " -b | -l\n\nDESCRIPTION\n  A simple command-line script to send SMS messages using\n  Clickatell's HTTP API (see http://clickatell.com).\n  Records messages log in " + LOG_FILE + ".\n  Reads configuration parameters from " + CONF_FILE + "\n\nOPTIONS\n  -s MSGID\n    Query message delivery status.\n\n  -b\n    Query account balance.\n\n  -l\n    List message log file using " + PAGER + ".\n\n  -p\n    List phone book.\n\nAUTHOR\n  Written by Stuart Rackham, <srackham@gmail.com>\n\nCOPYING\n  Copyright (C) 2011 Stuart Rackham. Free use of this software is\n  granted under the terms of the MIT License.";
   };
-  VERSION = '0.3.1';
+
+  VERSION = '0.3.2';
+
   spawn = require('child_process').spawn;
+
   path = require('path');
+
   fs = require('fs');
+
   http = require('http');
+
   querystring = require('querystring');
+
   CONF = {
     USERNAME: '',
     PASSWORD: '',
@@ -17,22 +25,30 @@
     SENDER_ID: '',
     PHONE_BOOK: {}
   };
+
   ARGV = process.argv.slice(1);
+
   ARGC = ARGV.length;
+
   PROG = path.basename(ARGV[0]);
+
   HOME = (_ref = process.env.HOME) != null ? _ref : process.env.HOMEPATH;
+
   LOG_FILE = path.join(HOME, 'clisms.log');
+
   PAGER = (_ref2 = process.env.PAGER) != null ? _ref2 : 'less';
+
   CONF_FILE = path.join(HOME, '.clisms.json');
-  if (path.existsSync(CONF_FILE)) {
-    CONF = JSON.parse(fs.readFileSync(CONF_FILE));
-  }
+
+  if (path.existsSync(CONF_FILE)) CONF = JSON.parse(fs.readFileSync(CONF_FILE));
+
   QUERY = {
     user: CONF.USERNAME,
     password: CONF.PASSWORD,
     api_id: CONF.API_ID,
     concat: 3
   };
+
   MSG_STATUS = {
     '001': 'message unknown',
     '002': 'message queued',
@@ -44,12 +60,27 @@
     '009': 'routing error',
     '012': 'out of credit'
   };
+
   String.prototype.startswith = function(s) {
     return s === this.slice(0, s.length);
   };
+
   String.prototype.endswith = function(s) {
     return s === this.slice(-s.length);
   };
+
+  shell = function(cmd, opts, callback) {
+    var child;
+    process.stdin.pause();
+    child = spawn(cmd, opts, {
+      customFds: [0, 1, 2]
+    });
+    return child.on('exit', function() {
+      process.stdin.resume();
+      return callback();
+    });
+  };
+
   http_cmd = function(cmd, process_response) {
     var query, url;
     query = querystring.stringify(QUERY);
@@ -69,11 +100,13 @@
       });
     });
   };
+
   print_account_balance = function() {
     return http_cmd('getbalance', function(result) {
       return console.info(result);
     });
   };
+
   print_message_status = function(msgid) {
     QUERY['apimsgid'] = msgid;
     return http_cmd('getmsgcharge', function(result) {
@@ -81,6 +114,7 @@
       return console.info(result + ' (' + ((_ref3 = MSG_STATUS[result.slice(-3)]) != null ? _ref3 : '') + ')');
     });
   };
+
   sanitize_phone_number = function(number) {
     var result;
     result = number.replace(/[+ ()-]/g, '');
@@ -90,6 +124,7 @@
     }
     return result;
   };
+
   send_message = function(text, to) {
     var name, sender_id;
     if (CONF.PHONE_BOOK[to] != null) {
@@ -109,9 +144,7 @@
     return http_cmd('sendmsg', function(result) {
       var fd, now;
       now = new Date;
-      if (name) {
-        to += ": " + name;
-      }
+      if (name) to += ": " + name;
       fd = fs.createWriteStream(LOG_FILE, {
         flags: 'a'
       });
@@ -120,6 +153,7 @@
       return console.info(result);
     });
   };
+
   if (ARGC === 3) {
     if (ARGV[1] === '-s') {
       print_message_status(ARGV[2]);
@@ -132,8 +166,8 @@
         print_account_balance();
         break;
       case '-l':
-        pager = spawn(PAGER, [LOG_FILE], {
-          customFds: [process.stdin, process.stdout, process.stderr]
+        shell(PAGER, [LOG_FILE], function() {
+          return process.exit();
         });
         break;
       case '-p':
@@ -146,4 +180,5 @@
   } else {
     console.info(MAN_PAGE());
   }
+
 }).call(this);
