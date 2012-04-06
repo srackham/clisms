@@ -6,7 +6,7 @@
     return "\nNAME\n  " + PROG + " - Send SMS message\n\nSYNOPSIS\n  " + PROG + " PHONE MESSAGE\n  " + PROG + " -s MSGID\n  " + PROG + " -b | -l\n\nDESCRIPTION\n  A simple command-line script to send SMS messages using\n  Clickatell's HTTP API (see http://clickatell.com).\n  Records messages log in " + LOG_FILE + ".\n  Reads configuration parameters from " + CONF_FILE + "\n\nOPTIONS\n  -s MSGID\n    Query message delivery status.\n\n  -b\n    Query account balance.\n\n  -l\n    List message log file using " + PAGER + ".\n\n  -p\n    List phone book.\n\nAUTHOR\n  Written by Stuart Rackham, <srackham@gmail.com>\n\nCOPYING\n  Copyright (C) 2011 Stuart Rackham. Free use of this software is\n  granted under the terms of the MIT License.";
   };
 
-  VERSION = '0.3.2';
+  VERSION = '0.3.3';
 
   spawn = require('child_process').spawn;
 
@@ -40,13 +40,14 @@
 
   CONF_FILE = path.join(HOME, '.clisms.json');
 
-  if (path.existsSync(CONF_FILE)) CONF = JSON.parse(fs.readFileSync(CONF_FILE));
+  if (fs.existsSync(CONF_FILE)) CONF = JSON.parse(fs.readFileSync(CONF_FILE));
 
   QUERY = {
     user: CONF.USERNAME,
     password: CONF.PASSWORD,
     api_id: CONF.API_ID,
-    concat: 3
+    concat: 3,
+    req_feat: 32
   };
 
   MSG_STATUS = {
@@ -135,9 +136,6 @@
     }
     to = sanitize_phone_number(to);
     sender_id = sanitize_phone_number(CONF.SENDER_ID);
-    if (sender_id.startsWith('64') && to.startsWith('6427')) {
-      sender_id = '0' + sender_id.slice(2);
-    }
     QUERY.from = sender_id;
     QUERY.to = to;
     QUERY.text = text;

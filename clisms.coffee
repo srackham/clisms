@@ -36,7 +36,7 @@ COPYING
   Copyright (C) 2011 Stuart Rackham. Free use of this software is
   granted under the terms of the MIT License.
 """
-VERSION = '0.3.2'
+VERSION = '0.3.3'
 
 {spawn} = require 'child_process'
 path = require 'path'
@@ -63,7 +63,7 @@ HOME = process.env.HOME ? process.env.HOMEPATH
 LOG_FILE = path.join HOME, 'clisms.log'
 PAGER = process.env.PAGER ? 'less'
 CONF_FILE = path.join HOME, '.clisms.json'
-if path.existsSync CONF_FILE
+if fs.existsSync CONF_FILE
   CONF = JSON.parse fs.readFileSync(CONF_FILE)
 
 # URL query string parameters.
@@ -72,6 +72,7 @@ QUERY =
   password: CONF.PASSWORD
   api_id:   CONF.API_ID
   concat:   3
+  req_feat: 32  # Gateway must support numeric sender ID.
 
 # Clickatell status messages.
 MSG_STATUS =
@@ -140,11 +141,6 @@ send_message = (text, to) ->
     name = null
   to = sanitize_phone_number to
   sender_id = sanitize_phone_number CONF.SENDER_ID
-  if sender_id.startsWith('64') and to.startsWith('6427')
-    # Use local number format if sending to Telecom NZ mobile from a NZ
-    # number (to work around Telecom NZ blocking NZ originating messages
-    # from Clickatell).
-    sender_id = '0' + sender_id[2..]
   QUERY.from = sender_id
   QUERY.to = to
   QUERY.text = text
