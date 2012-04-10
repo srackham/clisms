@@ -36,7 +36,7 @@ COPYING
   Copyright (C) 2011 Stuart Rackham. Free use of this software is
   granted under the terms of the MIT License.
 """
-VERSION = '0.3.3'
+VERSION = '0.3.4'
 
 {spawn} = require 'child_process'
 path = require 'path'
@@ -63,7 +63,8 @@ HOME = process.env.HOME ? process.env.HOMEPATH
 LOG_FILE = path.join HOME, 'clisms.log'
 PAGER = process.env.PAGER ? 'less'
 CONF_FILE = path.join HOME, '.clisms.json'
-if fs.existsSync CONF_FILE
+# path.existsSync is deprecated in node 0.7+.
+if (fs?.existsSync or path?.existsSync) CONF_FILE
   CONF = JSON.parse fs.readFileSync(CONF_FILE)
 
 # URL query string parameters.

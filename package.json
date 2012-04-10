@@ -1,7 +1,7 @@
 {
   "name": "clisms",
   "author": "Stuart Rackham <srackham@gmail.com>",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A command-line app to send SMS messages using the Clickatell SMS gateway",
   "keywords": [
     "sms",
