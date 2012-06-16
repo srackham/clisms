@@ -36,7 +36,7 @@ COPYING
   Copyright (C) 2011 Stuart Rackham. Free use of this software is
   granted under the terms of the MIT License.
 """
-VERSION = '0.3.4'
+VERSION = '0.3.5'
 
 {spawn} = require 'child_process'
 path = require 'path'
