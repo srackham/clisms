@@ -27,11 +27,11 @@ task 'validate', ->
     fail "package.json: invalid JSON: #{error.message}"
 
 desc 'Publish the package to NPM.'
-task 'publish', ->
+task 'publish', ['build'], ->
   shell 'npm', ['publish']
 
 desc 'Commit with message in file COMMIT.'
-task 'commit', ->
+task 'commit', ['build'], ->
   shell 'git', ['commit', '-a', '-F', 'COMMIT']
 
 desc 'Push project to github.'
