@@ -5,19 +5,15 @@ fs = require 'fs'
 CS_SRC = path.join __dirname, 'clisms.coffee'
 JS_EXE = path.join __dirname, 'clisms.js'
 
-shell = (cmd, args, callback) ->
-  child = spawn cmd, args
-  child.stderr.on 'data', (data) -> console.error data.toString()
-  child.stdout.on 'data', (data) -> console.info data.toString()
-  child.on 'exit', (code) ->
-    if code is 0 then callback?() else fail "#{cmd} #{args.join ' '}"
-
 addShebang = (script) ->
   fs.writeFileSync script, "#!/usr/bin/env node\n#{fs.readFileSync script}"
 
+desc 'List Jake tasks.'
+task 'default', -> jake.exec ['jake -T'], {printStdout: true}
+
 desc 'Build JavaScript executable.'
 task 'build', ['validate'], ->
-  shell 'coffee', ['-c', CS_SRC], -> addShebang JS_EXE
+  jake.exec ["coffee -c '#{CS_SRC}'"], -> addShebang JS_EXE
 
 desc 'Validate package.json.'
 task 'validate', ->
@@ -28,12 +24,12 @@ task 'validate', ->
 
 desc 'Publish the package to NPM.'
 task 'publish', ['build'], ->
-  shell 'npm', ['publish']
+  jake.exec ['npm publish']
 
 desc 'Commit with message in file COMMIT.'
 task 'commit', ['build'], ->
-  shell 'git', ['commit', '-a', '-F', 'COMMIT']
+  jake.exec ['git commit -a -F COMMIT']
 
 desc 'Push project to github.'
 task 'push', ->
-  shell 'git', ['push', 'origin', 'master']
+  jake.exec ['git push origin master']
