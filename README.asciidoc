@@ -2,6 +2,7 @@
 
 :listingblock.: <pre><code>|</code></pre>
 
+== clisms
 A command-line script to send SMS messages using
 http://clickatell.com[Clickatell's] SMS gateway.
 
