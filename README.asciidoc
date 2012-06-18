@@ -1,5 +1,5 @@
 == clisms command-line Clickatell SMS application
-:listingblock.: <pre><code>|</code></pre>
+:listingblock.: <div class=listingblock><div class=content><pre><code>|</code></pre></div></div>
 
 A command-line script to send SMS messages using
 http://clickatell.com[Clickatell's] SMS gateway.
