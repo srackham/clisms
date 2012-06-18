@@ -1,4 +1,4 @@
-== clisms command-line Clickatell SMS application
+= clisms command-line Clickatell SMS application
 
 :listingblock.: <pre><code>|</code></pre>
 
