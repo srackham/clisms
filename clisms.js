@@ -40,7 +40,7 @@
 
   CONF_FILE = path.join(HOME, '.clisms.json');
 
-  if (((fs != null ? fs.existsSync : void 0) || (path != null ? path.existsSync : void 0))(CONF_FILE)) {
+  if (((fs != null ? fs.existsSync : void 0) || (path != null ? fs.existsSync : void 0))(CONF_FILE)) {
     CONF = JSON.parse(fs.readFileSync(CONF_FILE));
   }
 
