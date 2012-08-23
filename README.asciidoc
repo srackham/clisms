@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/srackham/clisms.png)](http://travis-ci.org/srackham/clisms)
 = clisms command-line Clickatell SMS application
 
 :listingblock.: <pre><code>|</code></pre>
