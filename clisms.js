@@ -22,7 +22,7 @@ var Clisms;
             '  Clickatell\'s HTTP API (see http://clickatell.com).', 
             '  Records messages log in ' + LOG_FILE + '.', 
             '  Reads configuration parameters from ' + CONF_FILE + '', 
-            '  Compiled from TypeScript source.', 
+            '  Version ' + VERSION + ' compiled from TypeScript source.', 
             '', 
             'OPTIONS', 
             '  -s MSGID', 
@@ -45,7 +45,7 @@ var Clisms;
             '  granted under the terms of the MIT License.'
         ].join('\n');
     }
-    var VERSION = '0.4.0';
+    var VERSION = '0.4.1';
     var ARGV = process.argv.slice(1);
     var ARGC = ARGV.length;
     var PROG = path.basename(ARGV[0]);

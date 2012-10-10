@@ -31,7 +31,7 @@ module Clisms {
     '  Clickatell\'s HTTP API (see http://clickatell.com).',
     '  Records messages log in ' + LOG_FILE + '.',
     '  Reads configuration parameters from ' + CONF_FILE + '',
-    '  Compiled from TypeScript source.',
+    '  Version ' + VERSION + ' compiled from TypeScript source.',
     '',
     'OPTIONS',
     '  -s MSGID',
@@ -55,7 +55,7 @@ module Clisms {
     ].join('\n');
   }
 
-  var VERSION = '0.4.0';
+  var VERSION = '0.4.1';
 
   var ARGV = process.argv.slice(1); // Drop 'node' from arguments.
   var ARGC = ARGV.length;
