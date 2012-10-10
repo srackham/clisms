@@ -33,7 +33,7 @@ task 'validate', ->
 
 desc 'Publish the package to NPM.'
 task 'publish', [DEFAULT_BUILD], ->
-  jake.exec ['npm publish'], EXEC_PRINT_OPTS
+  jake.exec ['npm publish --force'], EXEC_PRINT_OPTS
 
 desc 'Commit with message in file COMMIT.'
 task 'commit', [DEFAULT_BUILD], ->

@@ -1,10 +1,10 @@
 ## clisms
 
 A command-line script to send SMS messages using
-http://clickatell.com[Clickatell's] SMS gateway.
+[Clickatell's](http://clickatell.com) SMS gateway.
 
-Runs under http://nodejs.org/[NodeJS] (NodeJS must be installed). The
-easiest way to install is using http://npmjs.org/[npm]:
+Runs under [NodeJS](http://nodejs.org) (NodeJS must be installed).
+The easiest way to install is using [npm](http://npmjs.org):
 
     npm install clisms
 
