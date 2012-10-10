@@ -42,4 +42,4 @@ task 'commit', [DEFAULT_BUILD], ->
 desc 'Push project to github.'
 task 'push', ->
   console.log 'pushing to https://github.com/srackham/clisms'
-  jake.exec ['git push origin master'], EXEC_PRINT_OPTS
+  jake.exec ['git push --tags origin master'], EXEC_PRINT_OPTS
