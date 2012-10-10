@@ -26,7 +26,9 @@ the example below).
   status of previously sent messages.
 - Configuration options to map names to phone numbers.
 
-.Example usage
+
+=== Example usage
+
 ---------------------------------------------------------------------
 $ clisms 64912345667 "Hello World"
 ID: 26a8147fa04ed9fj2a9ad125c55cee00
@@ -39,7 +41,7 @@ $ clisms -b
 Credit: 204.900
 ---------------------------------------------------------------------
 
-.Configuration
+=== Configuration
 Set the Clickatell account configuration parameters in the
 JSON formatted configuration named `.clisms.json` in your
 home directory. For example:
@@ -58,7 +60,7 @@ home directory. For example:
 }
 ---------------------------------------------------------------------
 
-.Implementation
+=== Implementation
 The original version this program was
 https://srackham.wordpress.com/2010/03/23/command-line-sms-script/[written
 in Python] but this version is written in both CoffeeScript
