@@ -15,6 +15,7 @@ DESCRIPTION
   Clickatell's HTTP API (see http://clickatell.com).
   Records messages log in #{LOG_FILE}.
   Reads configuration parameters from #{CONF_FILE}
+  Compiled from CoffeeScript source.
 
 OPTIONS
   -s MSGID
@@ -36,7 +37,7 @@ COPYING
   Copyright (C) 2011 Stuart Rackham. Free use of this software is
   granted under the terms of the MIT License.
 """
-VERSION = '0.3.5'
+VERSION = '0.4.0'
 
 {spawn} = require 'child_process'
 path = require 'path'

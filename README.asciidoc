@@ -1,5 +1,6 @@
 = clisms command-line Clickatell SMS application
 
+// Because github is running and old version of asciidoc.
 :listingblock.: <pre><code>|</code></pre>
 
 == clisms
@@ -58,7 +59,10 @@ home directory. For example:
 ---------------------------------------------------------------------
 
 .Implementation
-The program is written in CoffeeScript which is compiled to a node
-executable JavaScript file `clisms.js` using the Cakefile `cake
-build` command.
-
+The original version this program was
+https://srackham.wordpress.com/2010/03/23/command-line-sms-script/[written
+in Python] but this version is written in both CoffeeScript
+(`clisms.coffe`) and TypeScript (`clisms.ts`) as a learning exercise.
+The compiled node executable `clisms.js` file can be generated from
+either version (use the `jake build-coffee` command to compile
+`clisms.coffee`, `jake build-ts` command to compile `clisms.ts`.
