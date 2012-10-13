@@ -92,7 +92,7 @@ MSG_STATUS =
 String::startsWith = (s) -> s == this[0...s.length]
 String::endsWith = (s) -> s == this[-s.length..]
 
-# Execute shell command. 'cmd' is executable path; 'opts' is arguments arrary;
+# Execute shell command. 'cmd' is executable path; 'opts' is arguments array;
 # 'callback' is executed and passed the process exit code when the command
 # exits.
 shell = (cmd, opts, callback) ->
