@@ -1,6 +1,5 @@
 = clisms command-line Clickatell SMS application
 
-// Because github is running and old version of asciidoc.
 :listingblock.: <pre><code>|</code></pre>
 
 == clisms
