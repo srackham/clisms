@@ -61,8 +61,12 @@ home directory. For example:
 === Implementation
 The original version this program was
 https://srackham.wordpress.com/2010/03/23/command-line-sms-script/[written
-in Python] but this version is written in both CoffeeScript
-(`clisms.coffee`) and TypeScript (`clisms.ts`) as a learning exercise.
+in Python] but this version is written in CoffeeScript
+(`clisms.coffee`), TypeScript (`clisms.ts`) and Dart (`clisms.dart`) as a learning exercise.
+
 The compiled node executable `clisms.js` file can be generated from
 either version (use the `jake build-coffee` command to compile
 `clisms.coffee`, `jake build-ts` command to compile `clisms.ts`.
+
+The Dart version should be run using the command-line Dart VM (`dart
+clisms.dart`), I got errors compiling it with `dart2js`.

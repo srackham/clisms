@@ -20,7 +20,7 @@ task 'default', -> jake.exec ['jake -T'], EXEC_PRINT_OPTS
 
 # Used internally to compile JavaScript executable.
 # Invoked with compile command string.
-task 'build', async: true, ['validate'], (compile_cmd)->
+task '_build', async: true, ['validate'], (compile_cmd)->
   jake.exec [compile_cmd], ->
         addShebang JS_EXE
         complete()
@@ -28,11 +28,11 @@ task 'build', async: true, ['validate'], (compile_cmd)->
 
 desc 'Build JavaScript executable from CoffeeScript source.'
 task 'build.coffee', ->
-  jake.Task['build'].invoke "coffee -c '#{CS_SRC}'"
+  jake.Task['_build'].invoke "coffee -c '#{CS_SRC}'"
 
 desc 'Build JavaScript executable from TypeScript source.'
 task 'build.ts', ->
-  jake.Task['build'].invoke "tsc '#{TS_SRC}'"  
+  jake.Task['_build'].invoke "tsc '#{TS_SRC}'"  
 
 desc 'Validate package.json.'
 task 'validate', ->
@@ -52,7 +52,7 @@ task 'publish', async: true, [PUBLISHED_BUILD], ->
         complete()
       , breakOnError: false, printStdout: true, printStderr: true
       
-desc 'Commit with message in file COMMIT.'
+desc 'Commit to git with message in file COMMIT'
 task 'commit', [PUBLISHED_BUILD], ->
   jake.exec ['git commit -a -F COMMIT'], EXEC_PRINT_OPTS
 
