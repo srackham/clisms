@@ -32,7 +32,7 @@ task 'build.coffee', ->
 
 desc 'Build JavaScript executable from TypeScript source.'
 task 'build.ts', ->
-  jake.Task['_build'].invoke "tsc '#{TS_SRC}'"  
+  jake.Task['_build'].invoke "tsc --module commonjs '#{TS_SRC}'"
 
 desc 'Validate package.json.'
 task 'validate', ->

@@ -8,13 +8,13 @@
 
 /// <reference path='node.d.ts'/>
 
-module Clisms {
+import child_process = require('child_process');
+import path = require('path');
+import fs = require('fs');
+import http = require('http');
+import querystring = require('querystring');
 
-  import child_process = module('child_process');
-  import path = module('path');
-  import fs = module('fs');
-  import http = module('http');
-  import querystring = module('querystring');
+module Clisms {
 
   function man_page(): string { return [
     '',
@@ -161,7 +161,7 @@ module Clisms {
   function print_message_status(msgid: string): void {
     QUERY['apimsgid'] = msgid;
     http_cmd('getmsgcharge', result =>
-      console.info(result + ' (' + (MSG_STATUS[result.slice(-3)] || '') + ')');
+      console.info(result + ' (' + (MSG_STATUS[result.slice(-3)] || '') + ')')
     );
   };
 
