@@ -68,8 +68,5 @@ The compiled node executable `clisms.js` file can be generated from
 either version (use the `jake build.coffee` command to compile
 `clisms.coffee`, `jake build.ts` command to compile `clisms.ts`.
 
-NOTE: To compile the TypeScript source you will need the `node.d.ts`
-type declaration file (part of the TypeScript distribution).
-
 The Dart version should be run using the command-line Dart VM (`dart
 clisms.dart`), I got errors compiling it with `dart2js`.
